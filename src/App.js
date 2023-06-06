@@ -3,21 +3,33 @@ import "./App.css";
 import AddMovies from "./Components/AddMovies";
 import Data from "./Components/Data";
 import MovieList from "./Components/MovieList";
-import Navigation from "./Components/Navigation";
+import Filter from "./Components/Filter";
 
 function App() {
   const [myMovies, setMyMovies] = useState(Data);
   const Adding = (newMovie) => {
-    // setMyMovies([...myMovies, newMovie]);
-    console.log("Hello");
+    setMyMovies([...myMovies, newMovie]);
   };
+
+  // Search Filter
+
+  const [search, setSearch] = useState("");
+  const [rating, setRating] = useState(0);
+
   return (
     <div className="App">
-      <Navigation />
+      <Filter setsearch={setSearch} setrating={setRating} />
       <br />
       <AddMovies Add={Adding} />
-      <br />
-      <MovieList Data={myMovies} />
+
+      <MovieList
+        Data={myMovies.filter((el) => {
+          return (
+            el.title.trim().toLocaleLowerCase().includes(search) &&
+            el.rating >= rating
+          );
+        })}
+      />
     </div>
   );
 }

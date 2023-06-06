@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
-import { Modal, Nav, Button, Form } from "react-bootstrap/";
+import { Modal, Button, Form } from "react-bootstrap/";
 
-const AddMovies = ({ Adding }) => {
+const AddMovies = ({ Add }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -11,7 +11,7 @@ const AddMovies = ({ Adding }) => {
   const [newMovie, setNewMovie] = useState({
     title: "",
     description: "",
-    posterUrl: "",
+    posterURL: "",
     rating: 0,
   });
 
@@ -20,13 +20,15 @@ const AddMovies = ({ Adding }) => {
   };
 
   const AddingMovie = () => {
-    Adding(newMovie);
+    Add(newMovie);
     setShow(false);
   };
 
   return (
     <>
-      <Nav.Link onClick={handleShow}>Add New Movie</Nav.Link>
+      <Button variant="primary" onClick={handleShow}>
+        Add New Movie
+      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
@@ -61,7 +63,7 @@ const AddMovies = ({ Adding }) => {
               <Form.Control
                 onChange={handleChange}
                 type="text"
-                name="posterUrl"
+                name="posterURL"
                 placeholder="Poster URL"
               />
             </Form.Group>
